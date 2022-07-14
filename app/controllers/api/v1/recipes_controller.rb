@@ -15,7 +15,7 @@ module Api
         if @recipe.save
           render json: @recipe
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
@@ -38,7 +38,7 @@ module Api
       private
 
       def recipe_params
-        params.require(:recipe).permit(%i[name content])
+        params.require(:recipe).permit(%i[name content level])
       end
 
       def set_recipe

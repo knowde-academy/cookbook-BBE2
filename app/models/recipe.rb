@@ -1,4 +1,4 @@
 class Recipe < ApplicationRecord
   validates :name, presence: true
-  validates :level, allow_blank: true, numericality: {greater_than: 0, less_than: 6}
+  validates :level, allow_nil: true, numericality: {in: 1..5, only_integer: true}
 end

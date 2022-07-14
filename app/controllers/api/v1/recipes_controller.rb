@@ -7,8 +7,7 @@ module Api
       end
 
       def show
-        @recipe.video_link ||= 'unknown' 
-        render json: RecipeSerializerShow.new(@recipe).to_h
+        render json: RecipeShowSerializer.new(@recipe).to_h
       end
 
       def create

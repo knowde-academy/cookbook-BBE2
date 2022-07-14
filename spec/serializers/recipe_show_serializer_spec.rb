@@ -16,7 +16,7 @@ RSpec.describe RecipeShowSerializer do
     context 'when recipe without video_link' do
       let(:recipe) { build :recipe, video_link: nil }
 
-      it { is_expected.to include(video_link: NIL_RESULT) }
+      it { is_expected.to include(video_link: described_class.NIL_RESULT) }
     end
   end
 end

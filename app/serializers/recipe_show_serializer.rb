@@ -8,4 +8,8 @@ class RecipeShowSerializer < RecipeSerializer
 
     object.video_link
   end
+  
+  def self.NIL_RESULT
+    NIL_RESULT
+  end
 end

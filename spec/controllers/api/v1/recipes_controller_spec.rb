@@ -30,7 +30,8 @@ describe Api::V1::RecipesController do
       {
         recipe: {
           name: 'Leczo',
-          content: 'Very good dish'
+          content: 'Very good dish',
+          cooking_time: 20
         }
       }
     end

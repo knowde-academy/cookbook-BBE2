@@ -1,7 +1,8 @@
 class RecipeShowSerializer < RecipeSerializer
-  attributes :video_link
-  
   NIL_RESULT = 'unknown'
+
+  attributes :video_link
+
   def video_link
     return NIL_RESULT unless object.video_link
 

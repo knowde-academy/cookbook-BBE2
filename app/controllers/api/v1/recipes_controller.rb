@@ -7,6 +7,7 @@ module Api
       end
 
       def show
+        @recipe.cooking_time ||= 'unknow'
         render json: RecipeSerializer.new(@recipe).to_h
       end
 
@@ -38,7 +39,7 @@ module Api
       private
 
       def recipe_params
-        params.require(:recipe).permit(%i[name content])
+        params.require(:recipe).permit(%i[name content cooking_time])
       end
 
       def set_recipe

@@ -2,7 +2,7 @@ class CommentSerializer < ActiveModel::Serializer
   attributes :id, :author, :body, :created_at
 
   def author
-    return 'annonymous' if object.author.blank?
+    return 'annonymous' unless object.author
 
     object.author
   end

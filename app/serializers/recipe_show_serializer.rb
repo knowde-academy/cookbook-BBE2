@@ -1,5 +1,5 @@
 class RecipeShowSerializer < RecipeSerializer
-  NIL_RESULT = 'unknown'
+  NIL_RESULT = 'unknown'.freeze
   
   attributes :level
   

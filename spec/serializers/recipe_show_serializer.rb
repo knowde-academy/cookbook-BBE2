@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe RecipeSerializer do
+describe RecipeShowSerializer do
   subject(:serialized_recipe) { described_class.new(recipe).to_h }
 
   let(:recipe) { build(:recipe) }
@@ -16,7 +16,7 @@ describe RecipeSerializer do
     context 'when recipe without level' do
       let(:recipe) { build :recipe, level: nil }
 
-      it { is_expected.to include(level: described_class.NIL_RESULT) }
+      it { is_expected.to include(level: described_class::NIL_RESULT) }
     end
   end
 end

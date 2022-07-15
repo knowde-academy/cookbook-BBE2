@@ -8,8 +8,4 @@ class RecipeShowSerializer < RecipeSerializer
     
     object.level
   end
-  
-  def self.NIL_RESULT
-    NIL_RESULT
-  end
 end

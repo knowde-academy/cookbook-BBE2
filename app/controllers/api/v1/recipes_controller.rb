@@ -7,7 +7,7 @@ module Api
       end
 
       def show
-        render json: RecipeSerializer.new(@recipe).to_h
+        render json: RecipeShowSerializer.new(@recipe).to_h
       end
 
       def create
@@ -38,7 +38,7 @@ module Api
       private
 
       def recipe_params
-        params.require(:recipe).permit(%i[name content])
+        params.require(:recipe).permit(%i[name content video_link])
       end
 
       def set_recipe

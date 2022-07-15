@@ -5,4 +5,6 @@ class Recipe < ApplicationRecord
   validates :level, allow_nil: true, 
                     inclusion: { in: 1..5,
                                 message: INCLUSION_ERROR_MESSAGE }
+  validates :video_link, allow_blank: true, url: true
+  
 end

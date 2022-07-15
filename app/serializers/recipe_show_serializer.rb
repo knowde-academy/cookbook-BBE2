@@ -12,11 +12,11 @@ class RecipeShowSerializer < RecipeSerializer
 
   def comments
     object.comments.order(created_at: :desc)
-    
+  end
+
   def video_link
     return NIL_RESULT unless object.video_link
 
     object.video_link
-
   end
 end

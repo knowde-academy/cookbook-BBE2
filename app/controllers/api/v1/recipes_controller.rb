@@ -38,9 +38,7 @@ module Api
       private
 
       def recipe_params
-
         params.require(:recipe).permit(%i[name content cooking_time video_link])
-
       end
 
       def set_recipe

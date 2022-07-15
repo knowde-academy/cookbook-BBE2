@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-  INCLUSION_ERROR_MESSAGE = 'Level must be integer in range 1-5 inclusive'.freeze
+  INCLUSION_ERROR_MESSAGE = 'must be integer in range 1-5 inclusive'.freeze
   
   validates :name, presence: true
   validates :level, allow_nil: true, 

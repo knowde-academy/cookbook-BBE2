@@ -1,5 +1,5 @@
 class RecipeShowSerializer < RecipeSerializer
-  NIL_RESULT = 'unknown'
+  NIL_RESULT = 'unknown'.freeze
 
   attributes :video_link
 
@@ -7,9 +7,5 @@ class RecipeShowSerializer < RecipeSerializer
     return NIL_RESULT unless object.video_link
 
     object.video_link
-  end
-  
-  def self.NIL_RESULT
-    NIL_RESULT
   end
 end

@@ -17,7 +17,7 @@ RSpec.describe CommentSerializer do
     context 'when comment with author is nil' do
       let(:comment) { build :comment, author: nil }
 
-      it { is_expected.to include(author: 'annonymous') }
+      it { is_expected.to include(author: described_class::ANONYMOUS) }
     end
   end
 end

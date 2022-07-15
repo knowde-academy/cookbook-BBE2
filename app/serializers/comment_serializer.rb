@@ -1,8 +1,8 @@
 class CommentSerializer < ActiveModel::Serializer
+  ANONYMOUS = 'annonymous'.freeze
   attributes :id, :author, :body, :created_at
- ANON = 'annonymous'
   def author
-    return ANON unless object.author
+    return ANONYMOUS unless object.author
 
     object.author
   end

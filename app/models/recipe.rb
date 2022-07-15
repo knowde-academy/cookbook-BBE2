@@ -6,5 +6,4 @@ class Recipe < ApplicationRecord
                     inclusion: { in: 1..5,
                                 message: INCLUSION_ERROR_MESSAGE }
   validates :video_link, allow_blank: true, url: true
-  
 end

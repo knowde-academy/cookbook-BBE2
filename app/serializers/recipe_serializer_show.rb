@@ -1,3 +1,4 @@
-class RecipeSerializerShow < ActiveModel::Serializer
-  attributes :id, :name, :content, :cooking_time
+class RecipeSerializerShow < RecipeSerializer
+  attributes :cooking_time
+  
 end

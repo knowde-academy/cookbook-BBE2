@@ -1,8 +1,14 @@
 class RecipeShowSerializer < RecipeSerializer
   NIL_RESULT = 'unknown'.freeze
 
-  attributes :video_link
+  attributes :level, :video_link
   has_many :rates
+
+  def level
+    return NIL_RESULT unless object.level
+
+    object.level
+  end
 
   def video_link
     return NIL_RESULT unless object.video_link

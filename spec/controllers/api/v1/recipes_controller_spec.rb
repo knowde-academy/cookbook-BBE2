@@ -15,7 +15,7 @@ describe Api::V1::RecipesController do
   describe '[GET] #show' do
     let!(:recipe) { create(:recipe) }
     let(:expected_response) { RecipeShowSerializer.new(recipe).to_json }
-    
+
     before do
       get :show, params: { id: recipe.to_param }
     end
@@ -52,13 +52,14 @@ describe Api::V1::RecipesController do
         end.not_to change(Recipe, :count)
       end
     end
-    
+
     context 'with invalid level' do
       let(:recipe_params) do
         {
           recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 'zly' }
         }
       end
+
       it 'doesn\'t create recipe' do
         expect do
           post :create, params: recipe_params
@@ -94,10 +95,10 @@ describe Api::V1::RecipesController do
         end.not_to change { recipe.reload.name }
       end
     end
-    
+
     context 'with invalid level' do
-      let(:invalid_new_level) { 'level'}
-      
+      let(:invalid_new_level) { 'level' }
+
       it 'doesn\'t update name' do
         expect do
           put :update, params: { id: recipe.id, recipe: { level: invalid_new_level } }

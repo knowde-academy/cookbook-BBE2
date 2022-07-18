@@ -32,6 +32,9 @@ describe Api::V1::RecipesController do
           name: 'Leczo',
           content: 'Very good dish',
           price: 20
+          cooking_time: 12,
+          video_link: 'http://www.link.com',
+          level: 4
         }
       }
     end
@@ -48,6 +51,34 @@ describe Api::V1::RecipesController do
       it 'doesn\'t create recipe' do
         expect do
           post :create, params: { recipe: { name: '', content: '' } }
+        end.not_to change(Recipe, :count)
+      end
+    end
+
+    context 'with valid level' do
+      let(:recipe_params) do
+        {
+          recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 3 }
+        }
+      end
+
+      it 'creates recipe' do
+        expect do
+          post :create, params: recipe_params
+        end.to change(Recipe, :count).by(1)
+      end
+    end
+
+    context 'with invalid level' do
+      let(:recipe_params) do
+        {
+          recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 'zly' }
+        }
+      end
+
+      it 'doesn\'t create recipe' do
+        expect do
+          post :create, params: recipe_params
         end.not_to change(Recipe, :count)
       end
     end
@@ -78,6 +109,16 @@ describe Api::V1::RecipesController do
         expect do
           put :update, params: { id: recipe.id, recipe: { name: invalid_new_name } }
         end.not_to change { recipe.reload.name }
+      end
+    end
+
+    context 'with invalid level' do
+      let(:invalid_new_level) { 'level' }
+
+      it 'doesn\'t update name' do
+        expect do
+          put :update, params: { id: recipe.id, recipe: { level: invalid_new_level } }
+        end.not_to change { recipe.reload.level }
       end
     end
   end

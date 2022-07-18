@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_070931) do
     t.string "video_link"
     t.integer "cooking_time"
     t.decimal "price"
+    t.integer "level"
   end
 
   add_foreign_key "comments", "recipes"

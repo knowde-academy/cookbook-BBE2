@@ -16,7 +16,7 @@ class RecipeShowSerializer < RecipeSerializer
 
   def level
     return NIL_RESULT unless object.level
-    
+
     object.level
   end
 

@@ -1,6 +1,6 @@
 class Recipe < ApplicationRecord
   INCLUSION_ERROR_MESSAGE = 'must be integer in range 1-5 inclusive'.freeze
-  
+
   has_many :rates, dependent: :destroy
 
   validates :name, presence: true

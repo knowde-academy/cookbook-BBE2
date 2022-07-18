@@ -3,7 +3,7 @@ module Api
     class RatesController < ApplicationController
       before_action :set_recipe
       def create
-        rate = rate.new(rate_params)
+        rate = Rate.new(rate_params)
         rate.recipe = @recipe
         if rate.save
           render json: rate
@@ -15,11 +15,11 @@ module Api
       private
       
       def rate_params
-        params.require(:comment).permit(%i[vote])
+        params.require(:rate).permit(%i[vote])
       end
       
       def set_recipe
-        @recipe = Recipe.find(params[:id])
+        @recipe = Recipe.find(params[:recipe_id])
       end
     end
   end

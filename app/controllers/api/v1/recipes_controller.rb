@@ -13,32 +13,32 @@ module Api
       def create
         @recipe = Recipe.new(recipe_params)
         if @recipe.save
-          render json: @recipe
+          render json: RecipeShowSerializer.new(@recipe).to_h
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       def update
         if @recipe.update(recipe_params)
-          render json: @recipe
+          render json: RecipeShowSerializer.new(@recipe).to_h
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       def destroy
         if @recipe.destroy
-          render json: @recipe
+          render json: RecipeShowSerializer.new(@recipe).to_h
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
       private
 
       def recipe_params
-        params.require(:recipe).permit(%i[name content video_link])
+        params.require(:recipe).permit(%i[name content level video_link])
       end
 
       def set_recipe

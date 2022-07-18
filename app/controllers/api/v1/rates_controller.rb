@@ -11,13 +11,13 @@ module Api
           render json: { errors: rate.errors.full_messages }, status: :unprocessable_entity
         end
       end
-      
+
       private
-      
+
       def rate_params
         params.require(:rate).permit(%i[vote])
       end
-      
+
       def set_recipe
         @recipe = Recipe.find(params[:recipe_id])
       end

@@ -19,4 +19,14 @@ RSpec.describe RecipeShowSerializer do
       it { is_expected.to include(video_link: described_class::NIL_RESULT) }
     end
   end
+
+  describe '#rates' do
+    let!(:rates) do
+      create_list(:rate, 3, recipe: recipe).map do |rate|
+        RateSerializer.new(rate).to_h
+      end
+    end
+
+    it { is_expected.to include(rates: rates) }
+  end
 end

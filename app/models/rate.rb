@@ -4,5 +4,5 @@ class Rate < ApplicationRecord
   belongs_to :recipe
   
   validates :vote, presence: true,
-            inclusion: {in: 1..5, message: INCLUSION_ERROR_MESSAGE }
+            inclusion: { in: 1..5, message: INCLUSION_ERROR_MESSAGE }
 end

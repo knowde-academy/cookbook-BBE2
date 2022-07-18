@@ -15,7 +15,7 @@ module Api
         if @recipe.save
           render json: @recipe
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
@@ -23,7 +23,7 @@ module Api
         if @recipe.update(recipe_params)
           render json: @recipe
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 
@@ -31,7 +31,7 @@ module Api
         if @recipe.destroy
           render json: @recipe
         else
-          render json: { errors: @recipe.errors.to_s }, status: :unprocessable_entity
+          render json: { errors: @recipe.errors.full_messages }, status: :unprocessable_entity
         end
       end
 

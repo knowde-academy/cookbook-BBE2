@@ -10,4 +10,3 @@ RSpec.describe Rate, type: :model do
     it { is_expected.to validate_inclusion_of(:vote).in_range(1..5).with_message(described_class::INCLUSION_ERROR_MESSAGE) }
   end
 end
-

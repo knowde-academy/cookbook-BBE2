@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Recipe, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:rates).dependent(:destroy) }
+    it { is_expected.to have_many(:comments).dependent(:destroy) }
   end
 
   describe 'validations' do

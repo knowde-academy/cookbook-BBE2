@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :recipes do
         resources :rates, only: %i[create]
+        resources :comments, only: %i[create]
       end
     end
   end

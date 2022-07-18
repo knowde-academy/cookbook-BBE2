@@ -1,7 +1,19 @@
 class RecipeShowSerializer < RecipeSerializer
   NIL_RESULT = 'unknown'.freeze
 
-  attributes :level, :video_link
+  attributes :cooking_time, :video_link, :level
+  
+  has_many :comments
+
+  def cooking_time
+    return NIL_RESULT unless object.cooking_time
+
+    object.cooking_time
+  end
+
+  def comments
+    object.comments.order(created_at: :desc)
+  end
 
   def level
     return NIL_RESULT unless object.level

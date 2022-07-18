@@ -1,12 +1,32 @@
 require 'rails_helper'
 
-RSpec.describe RecipeShowSerializer do
+describe RecipeShowSerializer do
   subject(:serialized_recipe) { described_class.new(recipe).to_h }
 
-  let(:recipe) { build(:recipe) }
+  let(:recipe) { create :recipe }
 
-  it { is_expected.to include(name: recipe.name) }
-  it { is_expected.to include(content: recipe.content) }
+  describe '#cooking_time' do
+    context 'with cooking_time' do
+      it { is_expected.to include(cooking_time: recipe.cooking_time) }
+    end
+
+    context 'without cooking_time' do
+      let!(:recipe) { create :recipe, cooking_time: nil }
+
+      it { is_expected.to include(cooking_time: described_class::NIL_RESULT) }
+    end
+  end
+
+  describe '#comments' do
+    let!(:comments) { create_list :comment, 2, recipe: recipe }
+    let(:serialized_comments) do
+      comments.sort_by(&:created_at).reverse!.map do |comment|
+        CommentSerializer.new(comment).to_h
+      end
+    end
+
+    it { is_expected.to include(comments: serialized_comments) }
+  end
 
   describe '#video_link' do
     context 'when recipe with video_link' do

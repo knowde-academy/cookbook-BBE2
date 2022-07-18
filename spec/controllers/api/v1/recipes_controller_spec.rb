@@ -31,6 +31,7 @@ describe Api::V1::RecipesController do
         recipe: {
           name: 'Leczo',
           content: 'Very good dish',
+          cooking_time: 12,
           video_link: 'http://www.link.com',
           level: 4
         }

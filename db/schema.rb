@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_13_071428) do
+
+ActiveRecord::Schema.define(version: 2022_07_14_114653) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 2022_07_13_071428) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "video_link"
     t.integer "cooking_time"
+    t.integer "level"
+
   end
 
   add_foreign_key "comments", "recipes"

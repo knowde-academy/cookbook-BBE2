@@ -59,14 +59,14 @@ describe Api::V1::RecipesController do
           recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 3 }
         }
       end
-      
+
       it 'creates recipe' do
         expect do
           post :create, params: recipe_params
         end.to change(Recipe, :count).by(1)
       end
     end
-    
+
     context 'with invalid level' do
       let(:recipe_params) do
         {
@@ -80,7 +80,6 @@ describe Api::V1::RecipesController do
         end.not_to change(Recipe, :count)
       end
     end
-    
   end
 
   describe '[PUT] #update' do

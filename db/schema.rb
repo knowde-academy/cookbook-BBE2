@@ -15,13 +15,24 @@ ActiveRecord::Schema.define(version: 2022_07_15_070931) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "comments", force: :cascade do |t|
+    t.string "author"
+    t.string "body", null: false
+    t.bigint "recipe_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_comments_on_recipe_id"
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "video_link"
     t.integer "cooking_time"
     t.decimal "price"
   end
 
+  add_foreign_key "comments", "recipes"
 end

@@ -85,12 +85,26 @@ describe Api::V1::RecipesController do
       create(:recipe, name: old_name, video_link: old_video_link,
                       cooking_time: old_cooking_time, price: old_price, level: old_level)
     end
+    let(:params) do
+      { id: recipe.id, recipe: { name: new_name, video_link: new_video_link,
+                                 cooking_time: new_cooking_time, price: new_price, level: new_level } }
+    end
 
     context 'with valid params' do
-      it 'updates name' do
+      it do
         expect do
-          put :update, params: { id: recipe.id, recipe: { name: new_name } }
+          put :update, params: params
         end.to change { recipe.reload.name }.from(old_name).to(new_name)
+                                            .and change { recipe.reload.video_link }.from(old_video_link).to(new_video_link)
+                                                                                    .and change {
+                                                                                           recipe.reload.cooking_time
+                                                                                         }.from(old_cooking_time).to(new_cooking_time)
+          .and change {
+                 recipe.reload.price
+               }.from(old_price).to(new_price)
+          .and change {
+                 recipe.reload.level
+               }.from(old_level).to(new_level)
       end
 
       it 'returns updated name' do
@@ -98,21 +112,9 @@ describe Api::V1::RecipesController do
         expect(JSON.parse(response.body)['name']).to eq(new_name)
       end
 
-      it 'updates video_link' do
-        expect do
-          put :update, params: { id: recipe.id, recipe: { video_link: new_video_link } }
-        end.to change { recipe.reload.video_link }.from(old_video_link).to(new_video_link)
-      end
-
       it 'returns updated video_link' do
         put :update, params: { id: recipe.id, recipe: { video_link: new_video_link } }
         expect(JSON.parse(response.body)['video_link']).to eq(new_video_link)
-      end
-
-      it 'updates cooking_time' do
-        expect do
-          put :update, params: { id: recipe.id, recipe: { cooking_time: new_cooking_time } }
-        end.to change { recipe.reload.cooking_time }.from(old_cooking_time).to(new_cooking_time)
       end
 
       it 'returns updated cooking_time' do
@@ -120,21 +122,9 @@ describe Api::V1::RecipesController do
         expect(JSON.parse(response.body)['cooking_time']).to eq(new_cooking_time)
       end
 
-      it 'updates price' do
-        expect do
-          put :update, params: { id: recipe.id, recipe: { price: new_price } }
-        end.to change { recipe.reload.price }.from(old_price).to(new_price)
-      end
-
       it 'returns updated price' do
         put :update, params: { id: recipe.id, recipe: { price: new_price } }
         expect(JSON.parse(response.body)['price']).to eq(new_price.to_s)
-      end
-
-      it 'updates level' do
-        expect do
-          put :update, params: { id: recipe.id, recipe: { level: new_level } }
-        end.to change { recipe.reload.level }.from(old_level).to(new_level)
       end
 
       it 'returns updated level' do

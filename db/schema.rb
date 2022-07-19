@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 2022_07_19_081351) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rates", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.integer "vote", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_rates_on_recipe_id"
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "content"

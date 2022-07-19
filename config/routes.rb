@@ -6,6 +6,8 @@ Rails.application.routes.draw do
         resources :rates, only: %i[create]
         resources :comments, only: %i[create]
       end
+
+      resources :products
     end
   end
 end

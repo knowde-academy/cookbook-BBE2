@@ -1,8 +1,14 @@
 class RecipeShowSerializer < RecipeSerializer
   NIL_RESULT = 'unknown'.freeze
-
-  attributes :cooking_time, :video_link, :level, :avg_rate, :rates_count
+  
+  attributes :price, :cooking_time, :video_link, :level, :avg_rate, :rates_count
   has_many :comments
+
+  def price
+    return NIL_RESULT unless object.price
+
+    object.price
+  end
 
   def cooking_time
     return NIL_RESULT unless object.cooking_time

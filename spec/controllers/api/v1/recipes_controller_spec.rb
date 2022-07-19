@@ -31,6 +31,7 @@ describe Api::V1::RecipesController do
         recipe: {
           name: 'Leczo',
           content: 'Very good dish',
+          price: 20,
           cooking_time: 12,
           video_link: 'http://www.link.com',
           level: 4
@@ -39,25 +40,10 @@ describe Api::V1::RecipesController do
     end
 
     context 'with valid params' do
-      it 'creates recipe' do
-        expect do
-          post :create, params: recipe_params
-        end.to change(Recipe, :count).by(1)
-      end
-    end
-
-    context 'with invalid params' do
-      it 'doesn\'t create recipe' do
-        expect do
-          post :create, params: { recipe: { name: '', content: '' } }
-        end.not_to change(Recipe, :count)
-      end
-    end
-
-    context 'with valid level' do
       let(:recipe_params) do
         {
-          recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 3 }
+          recipe: { name: 'Pierogi', content: 'Wrzuc do wody', price: 7,
+          cooking_time: 10, video_link: 'http://www.pieroges.com', level: 2 }
         }
       end
 
@@ -71,7 +57,8 @@ describe Api::V1::RecipesController do
     context 'with invalid level' do
       let(:recipe_params) do
         {
-          recipe: { name: 'Pierogi', content: 'Wrzuc do wody', level: 'zly' }
+          recipe: { name: '', content: '', price: -1,
+          cooking_time: -2, video_link: 'aaa', level: -10 }
         }
       end
 
@@ -86,37 +73,79 @@ describe Api::V1::RecipesController do
   describe '[PUT] #update' do
     let(:old_name) { 'Rosol' }
     let(:new_name) { 'Pierogi' }
-    let(:recipe) { create(:recipe, name: old_name) }
+    let(:old_video_link) { 'http://www.rosol.com' }
+    let(:new_video_link) { 'http://www.pieroges.com' }
+    let(:old_cooking_time) { 10 }
+    let(:new_cooking_time) { 7 }
+    let(:old_price) { 5 }
+    let(:new_price) { 7.0 }
+    let(:old_level) { 3 }
+    let(:new_level) { 2 }
+    let(:recipe) do
+      create(:recipe, name: old_name, video_link: old_video_link,
+      cooking_time: old_cooking_time, price: old_price, level: old_level)
+    end
+    let(:params) do
+      { id: recipe.id, recipe: { name: new_name, video_link: new_video_link,
+      cooking_time: new_cooking_time, price: new_price, level: new_level } }
+    end
 
     context 'with valid params' do
-      it 'updates name' do
+      it do
         expect do
-          put :update, params: { id: recipe.id, recipe: { name: new_name } }
+          put :update, params: params
         end.to change { recipe.reload.name }.from(old_name).to(new_name)
+        .and change { recipe.reload.video_link }.from(old_video_link).to(new_video_link)
+        .and change { recipe.reload.cooking_time}.from(old_cooking_time).to(new_cooking_time)
+        .and change { recipe.reload.price}.from(old_price).to(new_price)
+        .and change { recipe.reload.level}.from(old_level).to(new_level)
       end
 
-      it 'returns updated object' do
-        put :update, params: { id: recipe.id, recipe: { name: new_name } }
+      it 'returns updated name' do
+        put :update, params: { id: recipe.id, recipe: { name: new_name, video_link: new_video_link,
+        cooking_time: new_cooking_time, price: new_price, level: new_level } }
         expect(JSON.parse(response.body)['name']).to eq(new_name)
+        expect(JSON.parse(response.body)['video_link']).to eq(new_video_link)
+        expect(JSON.parse(response.body)['cooking_time']).to eq(new_cooking_time)
+        expect(JSON.parse(response.body)['price']).to eq(new_price.to_s)
+        expect(JSON.parse(response.body)['level']).to eq(new_level)
       end
     end
 
     context 'with invalid params' do
       let(:invalid_new_name) { '' }
+      let(:invalid_video_link) { 'qweqweqwe' }
+      let(:invalid_cooking_time) { -2 }
+      let(:invalid_price) { -20 }
+      let(:invalid_level) { 'level' }
 
       it 'doesn\'t update name' do
         expect do
           put :update, params: { id: recipe.id, recipe: { name: invalid_new_name } }
         end.not_to change { recipe.reload.name }
       end
-    end
 
-    context 'with invalid level' do
-      let(:invalid_new_level) { 'level' }
-
-      it 'doesn\'t update name' do
+      it 'doesn\'t update video_link' do
         expect do
-          put :update, params: { id: recipe.id, recipe: { level: invalid_new_level } }
+          put :update, params: { id: recipe.id, recipe: { video_link: invalid_video_link } }
+        end.not_to change { recipe.reload.video_link }
+      end
+
+      it 'doesn\'t update cooking_time' do
+        expect do
+          put :update, params: { id: recipe.id, recipe: { cooking_time: invalid_cooking_time } }
+        end.not_to change { recipe.reload.cooking_time }
+      end
+
+      it 'doesn\'t update price' do
+        expect do
+          put :update, params: { id: recipe.id, recipe: { price: invalid_price } }
+        end.not_to change { recipe.reload.price }
+      end
+
+      it 'doesn\'t update level' do
+        expect do
+          put :update, params: { id: recipe.id, recipe: { level: invalid_level } }
         end.not_to change { recipe.reload.level }
       end
     end

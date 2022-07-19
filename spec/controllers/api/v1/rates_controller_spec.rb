@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Api::V1::RatesController do
-  describe '[GET] #create' do
+  describe '[POST] #create' do
     let(:recipe) { create(:recipe) }
     let(:rate_params) { { vote: 3 } }
 

@@ -2,6 +2,7 @@ module Api
   module V1
     class RatesController < ApplicationController
       before_action :set_recipe
+      
       def create
         rate = Rate.new(rate_params)
         rate.recipe = @recipe

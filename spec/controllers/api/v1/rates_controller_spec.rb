@@ -8,19 +8,30 @@ describe Api::V1::RatesController do
     context 'with valid votes' do
       it 'creates new rate' do
         expect do
-          post :create, params: { recipe_id: recipe.id, rate: rate_params }
-        end.to change(Recipe, :count).by(1)
+          post :create,
+          params: 
+          {
+            recipe_id: recipe.id, 
+            rate: rate_params
+          }
+        end.to change(Rate, :count).by(1)
       end
     end
-
+    
     context 'with invalid votes' do
-      let!(:recipe) { create(:recipe) }
       let(:invalid_vote) { 'thats invalid af' }
 
       it 'doesn\'t create new rate' do
         expect do
-          post :create, params: { recipe_id: recipe.id, rate: { vote: invalid_vote } }
-        end.not_to change(Recipe, :count)
+          post :create,
+          params: 
+          { 
+            recipe_id: recipe.id, 
+            rate: { 
+              vote: invalid_vote 
+            }
+          }
+        end.not_to change(Rate, :count)
       end
     end
   end

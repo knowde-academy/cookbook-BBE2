@@ -14,39 +14,41 @@ describe RecipeShowSerializer do
       let!(:recipe) { create :recipe, price: nil }
 
       it { is_expected.to include(price: described_class::NIL_RESULT) }
-
-  describe '#cooking_time' do
-    context 'with cooking_time' do
-      it { is_expected.to include(cooking_time: recipe.cooking_time) }
     end
 
-    context 'without cooking_time' do
-      let!(:recipe) { create :recipe, cooking_time: nil }
+    describe '#cooking_time' do
+      context 'with cooking_time' do
+        it { is_expected.to include(cooking_time: recipe.cooking_time) }
+      end
 
-      it { is_expected.to include(cooking_time: described_class::NIL_RESULT) }
-    end
-  end
+      context 'without cooking_time' do
+        let!(:recipe) { create :recipe, cooking_time: nil }
 
-  describe '#comments' do
-    let!(:comments) { create_list :comment, 2, recipe: recipe }
-    let(:serialized_comments) do
-      comments.sort_by(&:created_at).reverse!.map do |comment|
-        CommentSerializer.new(comment).to_h
+        it { is_expected.to include(cooking_time: described_class::NIL_RESULT) }
       end
     end
 
-    it { is_expected.to include(comments: serialized_comments) }
-  end
+    describe '#comments' do
+      let!(:comments) { create_list :comment, 2, recipe: recipe }
+      let(:serialized_comments) do
+        comments.sort_by(&:created_at).reverse!.map do |comment|
+          CommentSerializer.new(comment).to_h
+        end
+      end
 
-  describe '#video_link' do
-    context 'when recipe with video_link' do
-      it { is_expected.to include(video_link: recipe.video_link) }
+      it { is_expected.to include(comments: serialized_comments) }
     end
 
-    context 'when recipe without video_link' do
-      let(:recipe) { build :recipe, video_link: nil }
+    describe '#video_link' do
+      context 'when recipe with video_link' do
+        it { is_expected.to include(video_link: recipe.video_link) }
+      end
 
-      it { is_expected.to include(video_link: described_class::NIL_RESULT) }
+      context 'when recipe without video_link' do
+        let(:recipe) { build :recipe, video_link: nil }
+
+        it { is_expected.to include(video_link: described_class::NIL_RESULT) }
+      end
     end
   end
 end

@@ -10,11 +10,11 @@ describe CommentSerializer do
   it { is_expected.to include(created_at: comment.created_at) }
 
   describe '#comment' do
-    context ' with author' do
+    context 'with author' do
       it { is_expected.to include(author: comment.author) }
     end
 
-    context ' without author' do
+    context 'without author' do
       let!(:comment) { create :comment, author: nil }
 
       it { is_expected.to include(author: described_class::ANONYMOUS) }

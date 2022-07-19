@@ -1,8 +1,7 @@
 class RecipeShowSerializer < RecipeSerializer
   NIL_RESULT = 'unknown'.freeze
 
-  attributes :cooking_time, :video_link, :level
-  
+  attributes :level, :video_link, :cooking_time, :avg_rate, :rates_count
   has_many :comments
 
   def cooking_time
@@ -25,5 +24,14 @@ class RecipeShowSerializer < RecipeSerializer
     return NIL_RESULT unless object.video_link
 
     object.video_link
+  end
+
+  def avg_rate
+    # returns 0 if there is no rates
+    object.rates.average(:vote) || 0
+  end
+
+  def rates_count
+    object.rates.count
   end
 end

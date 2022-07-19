@@ -40,11 +40,11 @@ describe RecipeShowSerializer do
     end
 
     describe '#video_link' do
-      context 'when recipe with video_link' do
+      context 'recipe with video_link' do
         it { is_expected.to include(video_link: recipe.video_link) }
       end
 
-      context 'when recipe without video_link' do
+      context 'recipe without video_link' do
         let(:recipe) { build :recipe, video_link: nil }
 
         it { is_expected.to include(video_link: described_class::NIL_RESULT) }

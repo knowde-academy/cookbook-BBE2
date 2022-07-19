@@ -6,7 +6,7 @@ RSpec.describe '#sign_in' do
     post '/api/v1/auth/', params: { email: user.email, password: password}
   end
   
-  context ' with valid params' do
+  context 'with valid params' do
     it do
       expect do
         register
@@ -22,11 +22,7 @@ RSpec.describe '#sign_in' do
   context 'with invalid params' do
     let(:email) {'aaaa'}
     let(:user) { build( :user, email: email)}
-    it do
-      expect do
-        register
-      end.not_to change( User, :count)
-    end
+    it {expect {register}.not_to change( User, :count)}
     it 'request successful' do
       register
         expect(response).to have_http_status(422)

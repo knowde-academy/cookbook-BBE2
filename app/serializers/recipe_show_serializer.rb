@@ -25,12 +25,12 @@ class RecipeShowSerializer < RecipeSerializer
 
     object.video_link
   end
-  
+
   def avg_rate
     # returns 0 if there is no rates
     object.rates.average(:vote) || 0
   end
-  
+
   def rates_count
     object.rates.count
   end

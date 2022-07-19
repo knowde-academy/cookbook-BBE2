@@ -41,13 +41,9 @@ describe RecipeShowSerializer do
   end
 
   describe '#rates' do
-    let!(:rates) do
-      create_list(:rate, 3, recipe: recipe).map do |rate|
-        RateSerializer.new(rate).to_h
-      end
-    end
-     
-    it { is_expected.to include(rates_count: recipe.rates.count)}
+    before { create_list(:rate, 3, recipe: recipe) }
+
+    it { is_expected.to include(rates_count: recipe.rates.count) }
     it { is_expected.to include(avg_rate: recipe.rates.average(:vote)) }
   end
 end

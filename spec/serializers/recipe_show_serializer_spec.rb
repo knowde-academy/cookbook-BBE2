@@ -43,11 +43,11 @@ describe RecipeShowSerializer do
   describe '#rates' do
     context 'when recipe with rates' do
       before { create_list(:rate, 3, recipe: recipe) }
-      
+
       it { is_expected.to include(rates_count: recipe.rates.count) }
       it { is_expected.to include(avg_rate: recipe.rates.average(:vote)) }
     end
-    
+
     context 'when recipe without rates' do
       it { is_expected.to include(rates_count: 0) }
       it { is_expected.to include(avg_rate: 0) }

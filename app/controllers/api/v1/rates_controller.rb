@@ -4,8 +4,7 @@ module Api
       before_action :set_recipe
       
       def create
-        rate = Rate.new(rate_params)
-        rate.recipe = @recipe
+        rate = @recipe.rates.new(rate_params)
         if rate.save
           render json: rate
         else

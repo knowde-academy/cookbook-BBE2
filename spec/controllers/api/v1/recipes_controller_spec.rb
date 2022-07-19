@@ -43,7 +43,7 @@ describe Api::V1::RecipesController do
       let(:recipe_params) do
         {
           recipe: { name: 'Pierogi', content: 'Wrzuc do wody', price: 7,
-          cooking_time: 10, video_link: 'http://www.pieroges.com', level: 2 }
+                    cooking_time: 10, video_link: 'http://www.pieroges.com', level: 2 }
         }
       end
 
@@ -58,7 +58,7 @@ describe Api::V1::RecipesController do
       let(:recipe_params) do
         {
           recipe: { name: '', content: '', price: -1,
-          cooking_time: -2, video_link: 'aaa', level: -10 }
+                    cooking_time: -2, video_link: 'aaa', level: -10 }
         }
       end
 
@@ -83,11 +83,11 @@ describe Api::V1::RecipesController do
     let(:new_level) { 2 }
     let(:recipe) do
       create(:recipe, name: old_name, video_link: old_video_link,
-      cooking_time: old_cooking_time, price: old_price, level: old_level)
+                      cooking_time: old_cooking_time, price: old_price, level: old_level)
     end
     let(:params) do
       { id: recipe.id, recipe: { name: new_name, video_link: new_video_link,
-      cooking_time: new_cooking_time, price: new_price, level: new_level } }
+                                 cooking_time: new_cooking_time, price: new_price, level: new_level } }
     end
 
     context 'with valid params' do
@@ -95,15 +95,21 @@ describe Api::V1::RecipesController do
         expect do
           put :update, params: params
         end.to change { recipe.reload.name }.from(old_name).to(new_name)
-        .and change { recipe.reload.video_link }.from(old_video_link).to(new_video_link)
-        .and change { recipe.reload.cooking_time}.from(old_cooking_time).to(new_cooking_time)
-        .and change { recipe.reload.price}.from(old_price).to(new_price)
-        .and change { recipe.reload.level}.from(old_level).to(new_level)
+                                            .and change { recipe.reload.video_link }.from(old_video_link).to(new_video_link)
+                                                                                    .and change {
+                                                                                           recipe.reload.cooking_time
+                                                                                         }.from(old_cooking_time).to(new_cooking_time)
+          .and change {
+                 recipe.reload.price
+               }.from(old_price).to(new_price)
+          .and change {
+                 recipe.reload.level
+               }.from(old_level).to(new_level)
       end
 
       it 'returns updated name' do
         put :update, params: { id: recipe.id, recipe: { name: new_name, video_link: new_video_link,
-        cooking_time: new_cooking_time, price: new_price, level: new_level } }
+                                                        cooking_time: new_cooking_time, price: new_price, level: new_level } }
         expect(JSON.parse(response.body)['name']).to eq(new_name)
         expect(JSON.parse(response.body)['video_link']).to eq(new_video_link)
         expect(JSON.parse(response.body)['cooking_time']).to eq(new_cooking_time)

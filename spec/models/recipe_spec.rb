@@ -18,5 +18,8 @@ RSpec.describe Recipe, type: :model do
 
     it { is_expected.to allow_value('', nil).for(:video_link) }
     it { is_expected.to validate_url_of(:video_link) }
+
+    it { is_expected.to validate_numericality_of(:price).is_greater_than_or_equal_to(0) }
+    it { is_expected.to allow_value(nil).for(:price) }
   end
 end

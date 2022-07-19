@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_19_074755) do
+
+ActiveRecord::Schema.define(version: 2022_07_19_081351) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +25,22 @@ ActiveRecord::Schema.define(version: 2022_07_19_074755) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recipe_id"], name: "index_comments_on_recipe_id"
   end
+  
+    create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
+  create_table "rates", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.integer "vote", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipe_id"], name: "index_rates_on_recipe_id"
+  end
+  
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "content"
@@ -34,8 +51,8 @@ ActiveRecord::Schema.define(version: 2022_07_19_074755) do
     t.decimal "price"
     t.integer "level"
   end
-
-  create_table "users", force: :cascade do |t|
+  
+    create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.string "encrypted_password", default: "", null: false

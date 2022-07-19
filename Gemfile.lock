@@ -223,6 +223,9 @@ GEM
     unicode-display_width (2.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    validate_url (1.0.15)
+      activemodel (>= 3.0.0)
+      public_suffix
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)

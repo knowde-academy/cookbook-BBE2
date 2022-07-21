@@ -2,6 +2,7 @@ module Api
   module V1
     class CommentsController < ApplicationController
       before_action :set_recipe, only: %i[create]
+      before_action :authenticate_api_v1_user!, only: %i[create]
 
       def create
         comment = Comment.new(comment_params)

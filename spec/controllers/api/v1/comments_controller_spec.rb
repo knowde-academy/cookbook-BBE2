@@ -24,10 +24,7 @@ RSpec.describe Api::V1::CommentsController, type: :controller do
     end
     
     context 'when user logged in' do
-      let(:test_user) { create(:user) }
-      before do
-        login_user test_user
-      end
+      login_user
       
       context 'with correct params' do
         let(:recipe_params) do
